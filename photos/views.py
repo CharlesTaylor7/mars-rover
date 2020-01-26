@@ -2,6 +2,7 @@ from django.http import HttpResponse
 import json
 from . import api
 from .models import Photo, Camera, Rover
+from typing import List
 
 def load_json(photos: List[dict]):
   print(Photo())
