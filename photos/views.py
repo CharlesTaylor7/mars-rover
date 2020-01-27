@@ -3,14 +3,13 @@ import json
 from . import api
 from .models import Photo, Camera, Rover
 from typing import List
-from django.utils.dateparse import parse_date
 
 def load_photo(obj: dict) -> Photo:
   return Photo(
     id=obj['id'],
     sol=obj['sol'],
     img_src=obj['img_src'],
-    earth_date=parse_date(obj['earth_date']),
+    earth_date=obj['earth_date'],
     camera_id=load_camera(obj['camera']),
   ).save()
 
@@ -26,8 +25,8 @@ def load_rover(obj: dict) -> Rover:
   return Rover(
     id=obj['id'],
     name=obj['name'],
-    landing_date=parse_date(obj['landing_date']),
-    launch_date=parse_date(obj['launch_date']),
+    landing_date=obj['landing_date'],
+    launch_date=obj['launch_date'],
     status=obj['status'],
     max_sol=obj['max_sol'],
     max_date=obj['max_date'],
