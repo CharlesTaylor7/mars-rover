@@ -5,24 +5,29 @@ from .models import Photo, Camera, Rover
 from typing import List
 
 def load_photo(obj: dict) -> Photo:
-  return Photo(
+
+  photo = Photo(
     id=obj['id'],
     sol=obj['sol'],
     img_src=obj['img_src'],
     earth_date=obj['earth_date'],
     camera_id=load_camera(obj['camera']),
-  ).save()
+  )
+  photo.save()
+  return photo
 
 def load_camera(obj: dict) -> Camera:
-  return Camera(
+  camera = Camera(
     id=obj['id'],
     name=obj['name'],
     full_name=obj['full_name'],
     rover_id=Rover(id=obj['rover_id']),
-  ).save()
+  )
+  camera.save()
+  return camera
 
 def load_rover(obj: dict) -> Rover:
-  return Rover(
+  rover = Rover(
     id=obj['id'],
     name=obj['name'],
     landing_date=obj['landing_date'],
@@ -32,6 +37,8 @@ def load_rover(obj: dict) -> Rover:
     max_date=obj['max_date'],
     total_photos=obj['total_photos'],
   ).save()
+  rover.save()
+  return rover
 
 def index(request):
   rovers = api.get_rovers()
@@ -40,12 +47,15 @@ def index(request):
     for rover in rovers
   ]
 
+  # to get all photos,
+  # iterate over all 3 rovers
+  # from sol 0 to rover.max_sol
+  # from page 1 to n until pages come back with less than 25 photos
   photos = api.get_photos(
-    rover = 'curiosity',
+    rover = 'spirit',
     sol = 1000,
-    page = 1,
   )
-
+  # return HttpResponse(photos)
   photo_models = [
     load_photo(photo)
     for photo in photos
