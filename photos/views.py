@@ -20,8 +20,8 @@ def load_json(photos: List[dict]) -> List[Photo]:
       id=obj['id'],
       name=obj['name'],
       full_name=obj['full_name'],
-      # rover_id=obj['rover_id'],
-    )
+      rover_id=Rover(id=obj['rover_id']),
+    ).save()
 
   def load_rover(obj: dict) -> Rover:
     return Rover(
@@ -35,7 +35,7 @@ def load_json(photos: List[dict]) -> List[Photo]:
     )
 
   return [
-    load_photo(obj)
+    load_photo(obj).save()
     for obj in photos
   ]
   pass
