@@ -10,7 +10,7 @@ def insert_photo(obj: dict) -> Photo:
     sol=obj['sol'],
     img_src=obj['img_src'],
     earth_date=obj['earth_date'],
-    camera_id=insert_camera(obj['camera']),
+    camera=insert_camera(obj['camera']),
   )
   photo.save()
   return photo
@@ -20,7 +20,7 @@ def insert_camera(obj: dict) -> Camera:
     id=obj['id'],
     name=obj['name'],
     full_name=obj['full_name'],
-    rover_id=Rover(id=obj['rover_id']),
+    rover=Rover(id=obj['rover_id']),
   )
   camera.save()
   return camera
@@ -54,7 +54,7 @@ def index(request):
     rover = 'spirit',
     sol = 1000,
   )
-  # return HttpResponse(photos)
+
   photo_models = [
     insert_photo(photo)
     for photo in photos

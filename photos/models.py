@@ -14,11 +14,11 @@ class Camera(models.Model):
   id = models.IntegerField(primary_key=True)
   name = models.CharField(max_length=50)
   full_name = models.CharField(max_length=200)
-  rover_id = models.ForeignKey(Rover, on_delete=models.SET_NULL, null=True)
+  rover = models.ForeignKey(Rover, on_delete=models.SET_NULL, null=True)
 
 class Photo(models.Model):
   id = models.IntegerField(primary_key=True)
   sol = models.IntegerField()
   img_src = models.CharField(max_length=200)
   earth_date = models.DateField(default=None)
-  camera_id = models.ForeignKey(Camera, on_delete=models.SET_NULL, null=True)
+  camera = models.ForeignKey(Camera, on_delete=models.SET_NULL, null=True)
