@@ -35,7 +35,7 @@ def insert_rover(obj: dict) -> Rover:
     max_sol=obj['max_sol'],
     max_date=obj['max_date'],
     total_photos=obj['total_photos'],
-  ).save()
+  )
   rover.save()
   return rover
 
