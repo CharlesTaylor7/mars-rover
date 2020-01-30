@@ -1,0 +1,7 @@
+.rover-slideshow {
+  pointer-events: none;
+}
+
+.rover-photo {
+  max-height: 60vh;
+}
