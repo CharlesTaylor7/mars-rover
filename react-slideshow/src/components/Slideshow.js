@@ -12,12 +12,19 @@ const Slideshow = () => {
   const [photos, setPhotos] = useState([1,2,3]);
   const [photoIndex, setPhotoIndex] = useState(0);
   const nextPhoto = useCallback(
-    () => setPhotoIndex(i => Math.min(i + 1, photos.length - 1)),
-    [photos]
+    () => {
+      console.log("hello, right!")
+
+      setPhotoIndex(i => Math.min(i + 1, photos.length - 1))
+    },
+    [setPhotoIndex, photos]
   );
   const prevPhoto = useCallback(
-    () => setPhotoIndex(i => Math.max(i - 1, 0)),
-    []
+    () => {
+      console.log("hello, left!")
+      setPhotoIndex(i => Math.max(i - 1, 0))
+    },
+    [setPhotoIndex]
   );
   console.log(photoIndex)
   const photoUrl = photos[photoIndex];
