@@ -40,12 +40,18 @@ class Migration(migrations.Migration):
                 ('sol', models.IntegerField()),
                 ('img_src', models.CharField(max_length=200)),
                 ('earth_date', models.DateField(default=None)),
-                ('camera_id', models.ForeignKey(null=True, on_delete=django.db.models.deletion.SET_NULL, to='photos.Camera')),
+                ('camera_id', models.ForeignKey(
+                    null=True,
+                    on_delete=django.db.models.deletion.SET_NULL,
+                    to='photos.Camera')),
             ],
         ),
         migrations.AddField(
             model_name='camera',
             name='rover_id',
-            field=models.ForeignKey(null=True, on_delete=django.db.models.deletion.SET_NULL, to='photos.Rover'),
+            field=models.ForeignKey(
+                null=True,
+                on_delete=django.db.models.deletion.SET_NULL,
+                to='photos.Rover'),
         ),
     ]
