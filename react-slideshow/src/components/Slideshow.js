@@ -8,8 +8,8 @@ const Slideshow = () => {
   const [camera, setCamera] = useState('');
   const [photos, setPhotos] = useState([]);
   useEffect(() => (async () => {
-    const photos = await fetchPhotos(rover, camera);
-    setPhotos(photos);
+    const newPhotos = await fetchPhotos(rover, camera);
+    setPhotos(newPhotos);
   })(),
   [rover, camera, setPhotos]);
 
@@ -32,7 +32,7 @@ const Slideshow = () => {
         prevPhoto={prevPhoto}
         nextPhoto={nextPhoto}
       />
-      { photo && <img className="rover-photo" src={photo.img_src} />}
+      { photo && <img className="rover-photo" src={photo.img_src}/>}
     </>
   );
 };

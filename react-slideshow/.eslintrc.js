@@ -22,5 +22,9 @@ module.exports = {
     'react',
   ],
   rules: {
+    'react/jsx-filename-extension': 'off',
+    'react/prop-types': 'off',
+    'react/no-array-index-key': 'off',
+    'jsx-a11y/alt-text': 'off',
   },
 };
