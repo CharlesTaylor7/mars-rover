@@ -8,14 +8,13 @@ export default () => {
   const [photoIndex, setPhotoIndex] = useState(0);
 
   useEffect(() => {
-      (async () => {
-        const newPhotos = await fetchPhotos(rover, camera);
-        setPhotoIndex(0);
-        setPhotos(newPhotos);
-      })();
-    },
-    [rover, camera, setPhotos, setPhotoIndex],
-  );
+    (async () => {
+      const newPhotos = await fetchPhotos(rover, camera);
+      setPhotoIndex(0);
+      setPhotos(newPhotos);
+    })();
+  },
+  [rover, camera, setPhotos, setPhotoIndex]);
 
   const nextPhoto = useCallback(
     () => setPhotoIndex((i) => Math.min(i + 1, photos.length - 1)),
