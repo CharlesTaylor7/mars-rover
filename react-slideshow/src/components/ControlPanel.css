@@ -1,0 +1,20 @@
+.control-panel {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  width: 80%;
+  max-width: 650px;
+  margin: 30px 0;
+
+}
+
+select {
+  width: 100px;
+}
+
+.navigation-buttons {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  width: 50px;
+}
