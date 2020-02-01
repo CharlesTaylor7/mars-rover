@@ -1,4 +1,4 @@
-.arrow {
+.arrow-button {
   color: white;
   text-emphasis: bold;
   font-size: 16px;
@@ -14,7 +14,7 @@
   margin: 0 5px;
 }
 
-.arrow:active {
+.arrow-button:active {
   box-shadow: none;
   transform: translate(1px, 1px);
 }

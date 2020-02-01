@@ -1,7 +1,7 @@
 import React from 'react';
 import './ControlPanel.css';
 import { rovers, cameras } from '../api';
-import Arrow from './Arrow';
+import ArrowButton from './ArrowButton';
 
 const ControlPanel = ({
   setRover, setCamera, prevPhoto, nextPhoto,
@@ -16,14 +16,13 @@ const ControlPanel = ({
       disabled={!cameras || !cameras.length}
       onChange={(event) => setCamera(event.target.value)}
     >
-
       {cameras.map((camera, index) => (
         <option key={index} value={camera.name}>{camera.full_name}</option>
       ))}
     </select>
     <div className="navigation-buttons">
-      <Arrow direction="left" handleClick={prevPhoto} />
-      <Arrow direction="right" handleClick={nextPhoto} />
+      <ArrowButton direction="left" handleClick={prevPhoto} />
+      <ArrowButton direction="right" handleClick={nextPhoto} />
     </div>
   </div>
 );
