@@ -21,7 +21,6 @@ const Slideshow = () => {
     ,
     [setPhotoIndex]
   );
-  console.log(photoIndex)
   const photoUrl = photos[photoIndex];
   return (
     <>
