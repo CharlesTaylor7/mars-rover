@@ -10,7 +10,8 @@ const ControlPanel = ({
     <span className="dropdown-label">Rover:</span>
     <select
       className="dropdown"
-      onChange={(event) => setRover(event.target.value)}>
+      onChange={(event) => setRover(event.target.value)}
+    >
       {rovers.map((rover, index) => (
         <option key={index}>{rover}</option>
       ))}

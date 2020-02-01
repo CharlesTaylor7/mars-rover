@@ -1,15 +1,15 @@
 import { useState, useCallback, useEffect } from 'react';
-import { fetchPhotos } from '../api';
+import { fetchPhotos, cameras, rovers } from '../api';
 
 export default () => {
-  const [rover, setRover] = useState('');
-  const [camera, setCamera] = useState('');
+  const [rover, setRover] = useState(rovers[0]);
+  const [camera, setCamera] = useState(cameras[0].name);
   const [photos, setPhotos] = useState([]);
   const [photoIndex, setPhotoIndex] = useState(0);
 
   useEffect(() => {
     (async () => {
-      const newPhotos = await fetchPhotos(rover, camera);
+      const newPhotos = await fetchPhotos({ rover, camera });
       setPhotoIndex(0);
       setPhotos(newPhotos);
     })();
