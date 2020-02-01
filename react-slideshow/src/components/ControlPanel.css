@@ -5,12 +5,17 @@
   width: 80%;
   max-width: 650px;
   margin: 30px 0;
-
 }
 
-select {
+.dropdown {
   width: 100px;
+  font-family: 'Times New Roman', Times, serif;
 }
+
+.dropdown-label {
+  text-emphasis: bold;
+}
+
 
 .navigation-buttons {
   display: flex;

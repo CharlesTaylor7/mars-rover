@@ -7,15 +7,17 @@ const ControlPanel = ({
   setRover, setCamera, prevPhoto, nextPhoto,
 }) => (
   <div className="control-panel">
-    <span className="rover-label">Rover:</span>
-    <select onChange={(event) => setRover(event.target.value)}>
+    <span className="dropdown-label">Rover:</span>
+    <select
+      className="dropdown"
+      onChange={(event) => setRover(event.target.value)}>
       {rovers.map((rover, index) => (
         <option key={index}>{rover}</option>
       ))}
     </select>
-    <span className="camera-label">Camera:</span>
-
+    <span className="dropdown-label">Camera:</span>
     <select
+      className="dropdown"
       disabled={!cameras || !cameras.length}
       onChange={(event) => setCamera(event.target.value)}
     >
