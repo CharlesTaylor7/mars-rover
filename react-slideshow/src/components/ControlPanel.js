@@ -3,7 +3,8 @@ import './ControlPanel.css';
 import { rovers, cameras } from '../api';
 import Arrow from './Arrow';
 
-const ControlPanel = ({ setRover, setCamera, prevPhoto, nextPhoto}) => (
+const ControlPanel = ({ setRover, setCamera, prevPhoto, nextPhoto }) => {
+  return (
 <div className="control-panel">
   <select onChange={(event) => console.log(event.target)}>
     {rovers.map((rover, index) => (
@@ -17,12 +18,13 @@ const ControlPanel = ({ setRover, setCamera, prevPhoto, nextPhoto}) => (
     ))} */}
   </select>
   <div className="navigation-buttons">
-    <Arrow direction="left" onClick={prevPhoto} />
-    <Arrow direction="right" onClick={nextPhoto} />
+    <Arrow direction="left" handleClick={prevPhoto} />
+    <Arrow direction="right" handleClick={nextPhoto} />
   </div>
 </div>
 )
 
 
+  };
 
 export default ControlPanel;

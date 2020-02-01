@@ -1,10 +1,9 @@
-import React, { useState } from 'react';
+import React from 'react';
 import './Arrow.css';
-import { rovers, cameras } from '../api';
 
-const Arrow = ({ direction, onClick }) => {
+const Arrow = ({ direction, handleClick }) => {
   return (
-    <button className="arrow" onClick={onClick}>
+    <button className="arrow" onClick={handleClick}>
       { direction === 'left' ? '<' : '>'}
     </button>
   );
