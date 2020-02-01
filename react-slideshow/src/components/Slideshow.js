@@ -1,14 +1,22 @@
-import React, { useState, useCallback } from 'react';
+import React, { useState, useCallback, useEffect } from 'react';
 import './Slideshow.css';
 import ControlPanel from './ControlPanel';
+import { fetchPhotos } from '../api';
 
 const Slideshow = () => {
-  const url = 'https://cdn.theatlantic.com/assets/media/img/mt/2019/07/PIA22486_MAIN/lead_720_405.jpg?mod=1562072594';
   const [rover, setRover] = useState('');
-  const [cameras, setCameras] = useState([]);
   const [camera, setCamera] = useState('');
-  const [photos, setPhotos] = useState([1,2,3]);
+  const [photos, setPhotos] = useState([]);
+
+  useEffect(async () => {
+      const photos = await fetchPhotos(rover, camera);
+      setPhotos(photos)
+    },
+    [rover, camera, setPhotos]
+  );
+
   const [photoIndex, setPhotoIndex] = useState(0);
+
   const nextPhoto = useCallback(
     () =>
       setPhotoIndex(i => Math.min(i + 1, photos.length - 1))
@@ -21,7 +29,7 @@ const Slideshow = () => {
     ,
     [setPhotoIndex]
   );
-  const photoUrl = photos[photoIndex];
+  const photo = photos[photoIndex];
   return (
     <>
       <ControlPanel
@@ -30,7 +38,7 @@ const Slideshow = () => {
         prevPhoto={prevPhoto}
         nextPhoto={nextPhoto}
       />
-      <img className="rover-photo" src={photoUrl || url} />
+      { photo && <img className="rover-photo" src={photo.img_url} />}
     </>
   );
 }
