@@ -7,10 +7,12 @@ const Slideshow = () => {
   const [rover, setRover] = useState('');
   const [camera, setCamera] = useState('');
   const [photos, setPhotos] = useState([]);
-  useEffect(() => (async () => {
-    const newPhotos = await fetchPhotos(rover, camera);
-    setPhotos(newPhotos);
-  })(),
+  useEffect(() => {
+    (async () => {
+      const newPhotos = await fetchPhotos(rover, camera);
+      setPhotos(newPhotos);
+    })();
+  },
   [rover, camera, setPhotos]);
 
   const [photoIndex, setPhotoIndex] = useState(0);
