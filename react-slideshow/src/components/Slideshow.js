@@ -7,27 +7,21 @@ const Slideshow = () => {
   const [rover, setRover] = useState('');
   const [camera, setCamera] = useState('');
   const [photos, setPhotos] = useState([]);
-  useEffect(() =>
-    (async () => {
-      const photos = await fetchPhotos(rover, camera);
-      setPhotos(photos)
-    })(),
-    [rover, camera, setPhotos]
-  );
+  useEffect(() => (async () => {
+    const photos = await fetchPhotos(rover, camera);
+    setPhotos(photos);
+  })(),
+  [rover, camera, setPhotos]);
 
   const [photoIndex, setPhotoIndex] = useState(0);
 
   const nextPhoto = useCallback(
-    () =>
-      setPhotoIndex(i => Math.min(i + 1, photos.length - 1))
-    ,
-    [setPhotoIndex, photos]
+    () => setPhotoIndex((i) => Math.min(i + 1, photos.length - 1)),
+    [setPhotoIndex, photos],
   );
   const prevPhoto = useCallback(
-    () =>
-      setPhotoIndex(i => Math.max(i - 1, 0))
-    ,
-    [setPhotoIndex]
+    () => setPhotoIndex((i) => Math.max(i - 1, 0)),
+    [setPhotoIndex],
   );
   const photo = photos[photoIndex];
   return (
@@ -41,6 +35,6 @@ const Slideshow = () => {
       { photo && <img className="rover-photo" src={photo.img_src} />}
     </>
   );
-}
+};
 
 export default Slideshow;
