@@ -15,7 +15,7 @@ const Slideshow = () => {
         prevPhoto={prevPhoto}
         nextPhoto={nextPhoto}
       />
-      { photo && <img className="rover-photo" src={photo.img_src} />}
+      { photo && <img className="rover-photo" src={photo.url} />}
     </>
   );
 };
