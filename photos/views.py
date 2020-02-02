@@ -30,7 +30,13 @@ def get_photos_with_raw_SQL(rover, camera):
 
 
 def get_photos_with_ORM(rover, camera):
-    return Photo.objects.filter(camera__name=camera).filter(camera__rover__name=rover).order_by('earth_date').values_list('img_src', 'earth_date')
+    return (
+        Photo.objects
+        .filter(camera__name=camera)
+        .filter(camera__rover__name=rover)
+        .order_by('earth_date')
+        .values_list('img_src', 'earth_date')
+    )
 
 
 def index(request, rover, camera):
