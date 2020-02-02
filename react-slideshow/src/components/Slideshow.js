@@ -6,8 +6,9 @@ import Navigation from './navigation/Navigation';
 
 const Slideshow = () => {
   const {
-    setRover, setCamera, photo, nextPhoto, prevPhoto,
+    setRover, setCamera, photo, nextPhoto, prevPhoto, nextDisabled, prevDisabled
   } = useSlideshow();
+  const navigationProps = { nextPhoto, prevPhoto, nextDisabled, prevDisabled }
   return (
     <div className="slideshow">
       <ControlPanel
@@ -17,10 +18,7 @@ const Slideshow = () => {
       { photo &&
         <>
           <img className="rover-photo" src={photo.url} />
-          <Navigation
-            prevPhoto={prevPhoto}
-            nextPhoto={nextPhoto}
-          />
+          <Navigation {...navigationProps} />
         </>
       }
     </div>

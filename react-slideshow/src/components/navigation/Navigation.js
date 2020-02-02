@@ -1,10 +1,10 @@
 import React from 'react';
 import ArrowButton from './ArrowButton';
 
-const Navigation = ({ prevPhoto, nextPhoto }) => (
+const Navigation = ({ prevPhoto, nextPhoto, prevDisabled, nextDisabled }) => (
   <div className="navigation-buttons">
-    <ArrowButton direction="left" handleClick={prevPhoto} />
-    <ArrowButton direction="right" handleClick={nextPhoto} />
+    <ArrowButton direction="left" handleClick={prevPhoto} disabled={prevDisabled} />
+    <ArrowButton direction="right" handleClick={nextPhoto} disabled={nextDisabled} />
   </div>
 );
 

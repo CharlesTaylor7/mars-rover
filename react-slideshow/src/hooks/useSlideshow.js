@@ -6,6 +6,8 @@ export default () => {
   const [camera, setCamera] = useState(cameras[0].name);
   const [photos, setPhotos] = useState([]);
   const [photoIndex, setPhotoIndex] = useState(0);
+  const prevDisabled = photoIndex === 0;
+  const nextDisabled = photoIndex === photos.length - 1;
 
   useEffect(() => {
     (async () => {
@@ -28,6 +30,12 @@ export default () => {
 
   const photo = photos[photoIndex];
   return {
-    setRover, setCamera, photo, nextPhoto, prevPhoto,
+    setRover,
+    setCamera,
+    photo,
+    nextPhoto,
+    prevPhoto,
+    prevDisabled,
+    nextDisabled,
   };
 };
