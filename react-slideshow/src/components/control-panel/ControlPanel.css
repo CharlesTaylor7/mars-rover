@@ -1,0 +1,6 @@
+.control-panel {
+  display: flex;
+  flex-direction: row;
+  margin: 30px 0;
+}
+
