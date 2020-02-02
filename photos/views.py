@@ -3,19 +3,23 @@ import json
 from .models import Photo, Camera, Rover
 from typing import List
 from django.http import JsonResponse
+from psycopg2 import sql
 
 
 def get_photos_with_raw_SQL(rover, camera):
-    return """
-    SELECT photos_photo.img_src, photos_photo.earth_date
+    return sql.SQL("""
+        SELECT photos_photo.img_src, photos_photo.earth_date
         FROM photos_photo
         INNER JOIN photos_camera
             ON photos_photo.camera_id=photos_camera.id
         INNER JOIN photos_rover
             ON photos_camera.rover_id=photos_rover.id
-        WHERE photos_camera.name='FHAZ'
-        AND photos_rover.name='Curiosity';
-    """
+        WHERE   photos_rover.name='{rover}'
+        AND photos_camera.name='{camera}';
+    """).format(
+        rover=sql.Identifier(rover),
+        camera=sql.Identifier(camera),
+    )
 
 
 def index(request, rover, camera):
