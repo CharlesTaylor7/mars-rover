@@ -3,8 +3,8 @@ import './ControlPanel.css';
 import { rovers, cameras } from '../../api';
 import Dropdown from './Dropdown';
 
-const roverOptions = rovers.map(rover => ({ value: rover, display: rover }));
-const cameraOptions = cameras.map(camera => ({ value: camera.name, display: camera.full_name }));
+const roverOptions = rovers.map((rover) => ({ value: rover, display: rover }));
+const cameraOptions = cameras.map((camera) => ({ value: camera.name, display: camera.full_name }));
 
 const ControlPanel = ({
   setRover, setCamera,

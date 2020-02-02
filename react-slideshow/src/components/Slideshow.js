@@ -14,9 +14,15 @@ const Slideshow = () => {
         setRover={setRover}
         setCamera={setCamera}
       />
-      { photo && <img className="rover-photo" src={photo.url} />}
-      <Navigation    prevPhoto={prevPhoto}
-        nextPhoto={nextPhoto}/>
+      { photo &&
+        <>
+          <img className="rover-photo" src={photo.url} />
+          <Navigation
+            prevPhoto={prevPhoto}
+            nextPhoto={nextPhoto}
+          />
+        </>
+      }
     </div>
   );
 };

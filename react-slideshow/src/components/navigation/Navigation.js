@@ -1,5 +1,5 @@
 import React from 'react';
-import ArrowButton from '../navigation/ArrowButton';
+import ArrowButton from './ArrowButton';
 
 const Navigation = ({ prevPhoto, nextPhoto }) => (
   <div className="navigation-buttons">
