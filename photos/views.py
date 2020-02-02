@@ -6,6 +6,7 @@ from django.http import JsonResponse
 from psycopg2 import sql
 from django.db import connection
 
+
 def get_photos_with_raw_SQL(rover, camera):
     with connection.cursor() as cursor:
         cursor.execute("""
@@ -25,12 +26,18 @@ def get_photos_with_raw_SQL(rover, camera):
             ORDER BY
                 photos_photo.earth_date ASC;
         """, {'rover': rover, 'camera': camera})
-        return [
-            { 'url': row[0], 'date': row[1]}
-            for row in cursor.fetchall()
-        ]
+        return cursor.fetchall()
+
+
+def get_photos_with_ORM(rover, camera):
+    return Photo.objects.filter(camera__name=camera).filter(camera__rover__name=rover).order_by('earth_date').values_list('img_src', 'earth_date')
 
 
 def index(request, rover, camera):
-    response = get_photos_with_raw_SQL(rover, camera)
+    # rows = get_photos_with_raw_SQL(rover, camera)
+    rows = get_photos_with_ORM(rover, camera)
+    response = [
+        {'url': row[0], 'date': row[1]}
+        for row in rows
+    ]
     return JsonResponse(response, safe=False)
