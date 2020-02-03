@@ -40,8 +40,15 @@ def get_photos_with_ORM(rover, camera):
 
 
 def index(request, rover, camera):
-    # rows = get_photos_with_raw_SQL(rover, camera)
-    rows = get_photos_with_ORM(rover, camera)
+    method = request.GET.get('method')
+    rows = []
+    if method == 'ORM':
+        rows = get_photos_with_ORM(rover, camera)
+    elif method == 'SQL':
+        rows = get_photos_with_raw_SQL(rover, camera)
+    else:
+        raise Exception('Unrecognized method of %s' % method)
+
     response = [
         {'url': row[0], 'date': row[1]}
         for row in rows
