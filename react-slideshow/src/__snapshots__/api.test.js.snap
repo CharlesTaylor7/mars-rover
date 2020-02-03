@@ -1,3 +1,14 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`fetchPhotos integration test 1`] = `Promise {}`;
+exports[`fetchPhotos integration test 1`] = `
+Array [
+  Object {
+    "date": "2015-05-30",
+    "url": "http://mars.jpl.nasa.gov/msl-raw-images/proj/msl/redops/ods/surface/sol/01000/opgs/edr/fcam/FLB_486265257EDR_F0481570FHAZ00323M_.JPG",
+  },
+  Object {
+    "date": "2015-05-30",
+    "url": "http://mars.jpl.nasa.gov/msl-raw-images/proj/msl/redops/ods/surface/sol/01000/opgs/edr/fcam/FRB_486265257EDR_F0481570FHAZ00323M_.JPG",
+  },
+]
+`;

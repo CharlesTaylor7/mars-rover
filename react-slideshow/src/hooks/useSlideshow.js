@@ -33,9 +33,11 @@ export default () => {
     setRover,
     setCamera,
     photo,
-    nextPhoto,
-    prevPhoto,
-    prevDisabled,
-    nextDisabled,
+    navigation: {
+      nextPhoto,
+      prevPhoto,
+      prevDisabled,
+      nextDisabled,
+    },
   };
 };

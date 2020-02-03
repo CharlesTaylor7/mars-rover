@@ -5,7 +5,7 @@ const Dropdown = ({ handleSelect, options, label }) => (
   <div className="dropdown">
     <div className="dropdown-label">
       {label}
-:
+      :
     </div>
     <select
       className="dropdown-select"

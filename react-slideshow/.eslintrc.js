@@ -26,5 +26,6 @@ module.exports = {
     'react/prop-types': 'off',
     'react/no-array-index-key': 'off',
     'jsx-a11y/alt-text': 'off',
+    'object-curly-newline': 'off',
   },
 };
