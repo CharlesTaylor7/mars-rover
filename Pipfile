@@ -10,7 +10,7 @@ pycodestyle = "*"
 
 [packages]
 requests = "*"
-django = "*"
+django = ">=2.0,<3.0"
 psycopg2 = "*"
 
 [requires]
