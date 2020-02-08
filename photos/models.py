@@ -1,6 +1,6 @@
 from django.db import models
 
-
+# Application models
 class Rover(models.Model):
     id = models.IntegerField(primary_key=True)
     name = models.CharField(db_index=True, max_length=200)
@@ -11,13 +11,11 @@ class Rover(models.Model):
     max_date = models.DateField(default=None)
     total_photos = models.IntegerField()
 
-
 class Camera(models.Model):
     id = models.IntegerField(primary_key=True)
     name = models.CharField(db_index=True, max_length=50)
     full_name = models.CharField(max_length=200)
     rover = models.ForeignKey(Rover, on_delete=models.SET_NULL, null=True)
-
 
 class Photo(models.Model):
     id = models.IntegerField(primary_key=True)
@@ -26,7 +24,22 @@ class Photo(models.Model):
     earth_date = models.DateField(db_index=True, default=None)
     camera = models.ForeignKey(Camera, on_delete=models.SET_NULL, null=True)
 
+# Application Entities
+from entity.config import EntityConfig, register_entity
 
+@register_entity()
+class RoverConfig(EntityConfig):
+    queryset = Rover.objects.all()
+
+@register_entity()
+class CameraConfig(EntityConfig):
+    queryset = Camera.objects.all()
+
+@register_entity()
+class PhotoConfig(EntityConfig):
+    queryset = Photo.objects.all()
+
+# Purely for tracking async job progress, not an application model
 class Job(models.Model):
     sol = models.IntegerField()
     page = models.IntegerField()
