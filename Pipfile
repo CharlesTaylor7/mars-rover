@@ -17,6 +17,7 @@ asyncio = "*"
 pip = "*"
 aiohttp = {extras = ["speedups"],version = "*"}
 goto-statement = "*"
+django-entity = "*"
 
 [requires]
 python_version = "3.8"
