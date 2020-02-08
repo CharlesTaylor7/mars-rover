@@ -7,7 +7,7 @@ from psycopg2 import sql
 from django.db import connection
 
 
-def get_photos_with_raw_SQL(rover, camera):
+def get_photos_with_raw_SQL(rover, camera, limit):
     with connection.cursor() as cursor:
         cursor.execute("""
             SELECT
@@ -24,28 +24,32 @@ def get_photos_with_raw_SQL(rover, camera):
             AND
                 photos_camera.name = %(camera)s
             ORDER BY
-                photos_photo.earth_date ASC;
-        """, {'rover': rover, 'camera': camera})
+                photos_photo.earth_date ASC
+            LIMIT
+                %(limit)s;
+        """, {'rover': rover, 'camera': camera, 'limit': limit})
         return cursor.fetchall()
 
 
-def get_photos_with_ORM(rover, camera):
+def get_photos_with_ORM(rover, camera, limit):
     return (
         Photo.objects
         .filter(camera__name=camera)
         .filter(camera__rover__name=rover)
         .order_by('earth_date')
+        [:limit]
         .values_list('img_src', 'earth_date')
     )
 
 
 def index(request, rover, camera):
+    limit = 100
     method = request.GET.get('method')
     rows = []
     if method == 'ORM':
-        rows = get_photos_with_ORM(rover, camera)
+        rows = get_photos_with_ORM(rover, camera, limit)
     elif method == 'SQL':
-        rows = get_photos_with_raw_SQL(rover, camera)
+        rows = get_photos_with_raw_SQL(rover, camera, limit)
     else:
         raise Exception('Unrecognized method of %s' % method)
 

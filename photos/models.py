@@ -25,3 +25,9 @@ class Photo(models.Model):
     img_src = models.CharField(max_length=200)
     earth_date = models.DateField(db_index=True, default=None)
     camera = models.ForeignKey(Camera, on_delete=models.SET_NULL, null=True)
+
+
+class Job(models.Model):
+    sol = models.IntegerField()
+    page = models.IntegerField()
+    rover = models.ForeignKey(Rover, db_index=True, on_delete=models.CASCADE)
