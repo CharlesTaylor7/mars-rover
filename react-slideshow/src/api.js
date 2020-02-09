@@ -1,6 +1,6 @@
 export const rovers = [
   'Curiosity',
-  'Oppurtunity',
+  'Opportunity',
   'Spirit',
 ];
 
