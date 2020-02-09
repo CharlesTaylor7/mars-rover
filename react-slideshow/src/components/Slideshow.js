@@ -7,6 +7,7 @@ const Slideshow = () => {
   const {
     setRover, setCamera, photo, navigation,
   } = useSlideshow();
+
   return (
     <div className="slideshow">
       <ControlPanel

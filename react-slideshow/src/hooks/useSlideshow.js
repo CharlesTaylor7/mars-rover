@@ -1,5 +1,6 @@
 import { useState, useCallback, useEffect } from 'react';
 import { fetchPhotos, cameras, rovers } from '../api';
+import useOnKeyDown from './useOnKeyDown';
 
 const loadImage = (src) => new Promise((resolve) => {
   const image = document.createElement('img');
@@ -26,6 +27,13 @@ export default () => {
   );
 
   const photo = photos[photoIndex];
+  useOnKeyDown(({ key }) => {
+    if (key === 'ArrowRight') {
+      nextPhoto();
+    } else if (key === 'ArrowLeft') {
+      prevPhoto();
+    }
+  }, []);
 
   useEffect(() => {
     (async () => {
