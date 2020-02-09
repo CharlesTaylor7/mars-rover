@@ -23,4 +23,5 @@
 .arrow-button:disabled {
   background-color: gray;
   box-shadow: none;
+  cursor: auto;
 }
