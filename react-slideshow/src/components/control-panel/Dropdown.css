@@ -9,7 +9,7 @@
 }
 
 .dropdown-label {
+  margin-right: 10px;
   font-weight: bold;
-  margin: 0 10px;
   user-select: none;
 }

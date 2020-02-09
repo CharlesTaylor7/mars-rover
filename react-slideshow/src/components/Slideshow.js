@@ -1,9 +1,7 @@
-/* eslint-disable react/jsx-props-no-spreading */
 import React from 'react';
 import './Slideshow.css';
 import ControlPanel from './control-panel/ControlPanel';
 import useSlideshow from '../hooks/useSlideshow';
-import Navigation from './navigation/Navigation';
 
 const Slideshow = () => {
   const {
@@ -14,13 +12,11 @@ const Slideshow = () => {
       <ControlPanel
         setRover={setRover}
         setCamera={setCamera}
+        navigation={navigation}
       />
       { photo
         && (
-          <>
-            <img className="rover-photo" src={photo.url} />
-            <Navigation {...navigation} />
-          </>
+          <img className="rover-photo" src={photo.url} />
         )}
     </div>
   );

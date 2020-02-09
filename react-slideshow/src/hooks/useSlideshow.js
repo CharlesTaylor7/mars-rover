@@ -12,8 +12,8 @@ export default () => {
   const [camera, setCamera] = useState(cameras[0].name);
   const [photos, setPhotos] = useState([]);
   const [photoIndex, setPhotoIndex] = useState(0);
-  const prevDisabled = photoIndex === 0;
-  const nextDisabled = photoIndex === photos.length - 1;
+  const prevDisabled = photoIndex <= 0;
+  const nextDisabled = photoIndex >= photos.length - 1;
 
   const nextPhoto = useCallback(
     () => setPhotoIndex((i) => Math.min(i + 1, photos.length - 1)),
