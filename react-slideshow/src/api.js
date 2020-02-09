@@ -4,8 +4,8 @@ export const rovers = [
   'Spirit',
 ];
 
-export const cameras = [{ name: 'FHAZ', full_name: 'Front Hazard Avoidance Camera' }, { name: 'NAVCAM', full_name: 'Navigation Camera' }, { name: 'PANCAM', full_name: 'Panoramic Camera' }, { name: 'MINITES', full_name: 'Miniature Thermal Emission Spectrometer (Mini-TES)' }, { name: 'ENTRY', full_name: 'Entry, Descent, and Landing Camera' }, { name: 'RHAZ', full_name: 'Rear Hazard Avoidance Camera' }];
+export const fetchCameras = (rover) => fetch(`mars_rover/cameras/?rover=${rover}`).then((res) => res.json());
 
 export const fetchPhotos = ({ rover, camera, method = 'ORM' }) => fetch(
-  `photos/${rover}/${camera}/?method=${method}`,
+  `mars_rover/photos/${rover}/${camera}/?method=${method}`,
 ).then((res) => res.json());

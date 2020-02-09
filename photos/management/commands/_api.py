@@ -13,23 +13,12 @@ def api_key():
 
 nasa_api_response = Union[dict, 'RateLimited']
 
-# temporary
-rate = { 'limit': 0 }
-# temporary
-
 async def fetch(session, relativeUrl, params={}) -> nasa_api_response:
     query_params = {
         'api_key': api_key(),
         **params,
     }
     url = f'{base_url()}/{relativeUrl}'
-
-    # temporary
-    rate['limit'] += 1
-    if rate['limit'] == 10:
-        return 'RateLimited'
-    # temporary
-
 
     async with session.get(url, params=query_params) as response:
         # Http response 429 means we hit the api rate limit

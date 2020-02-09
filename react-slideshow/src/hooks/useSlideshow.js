@@ -1,5 +1,6 @@
+/* eslint-disable no-shadow */
 import { useState, useCallback, useEffect } from 'react';
-import { fetchPhotos, cameras, rovers } from '../api';
+import { fetchPhotos, fetchCameras, rovers } from '../api';
 import useOnKeyDown from './useOnKeyDown';
 
 const loadImage = (src) => new Promise((resolve) => {
@@ -10,7 +11,8 @@ const loadImage = (src) => new Promise((resolve) => {
 
 export default () => {
   const [rover, setRover] = useState(rovers[0]);
-  const [camera, setCamera] = useState(cameras[0].name);
+  const [camera, setCamera] = useState();
+  const [cameras, setCameras] = useState([]);
   const [photos, setPhotos] = useState([]);
   const [photoIndex, setPhotoIndex] = useState(0);
   const prevDisabled = photoIndex <= 0;
@@ -36,11 +38,20 @@ export default () => {
   }, []);
 
   useEffect(() => {
-    (async () => {
-      const newPhotos = await fetchPhotos({ rover, camera });
-      setPhotoIndex(0);
-      setPhotos(newPhotos);
-    })();
+    fetchCameras(rover)
+      .then((cameras) => {
+        setCameras(cameras);
+        setCamera(cameras[0].name);
+      });
+  }, [rover]);
+
+  useEffect(() => {
+    if (camera === undefined) return;
+    fetchPhotos({ rover, camera })
+      .then((photos) => {
+        setPhotoIndex(0);
+        setPhotos(photos);
+      });
   },
   [rover, camera, setPhotos, setPhotoIndex]);
 
@@ -55,6 +66,7 @@ export default () => {
   [photos]);
 
   return {
+    cameras,
     setRover,
     setCamera,
     photo,

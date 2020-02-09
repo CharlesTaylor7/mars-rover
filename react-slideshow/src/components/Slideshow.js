@@ -5,7 +5,7 @@ import useSlideshow from '../hooks/useSlideshow';
 
 const Slideshow = () => {
   const {
-    setRover, setCamera, photo, navigation,
+    setRover, setCamera, cameras, navigation, photo,
   } = useSlideshow();
 
   return (
@@ -13,6 +13,7 @@ const Slideshow = () => {
       <ControlPanel
         setRover={setRover}
         setCamera={setCamera}
+        cameras={cameras}
         navigation={navigation}
       />
       { photo
