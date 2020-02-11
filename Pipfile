@@ -9,14 +9,12 @@ autopep8 = "*"
 pycodestyle = "*"
 
 [packages]
-requests = "*"
 django = ">=2.0,<3.0"
 psycopg2 = "*"
 asyncpg = "*"
 asyncio = "*"
 pip = "*"
 aiohttp = {extras = ["speedups"],version = "*"}
-goto-statement = "*"
 
 [requires]
 python_version = "3.8"
