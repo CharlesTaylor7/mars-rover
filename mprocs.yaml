@@ -1,0 +1,8 @@
+procs:
+  Server:
+    shell: uv run manage.py runserver
+
+  Client:
+    cwd: react-slideshow
+    shell: yarn start
+    autostart: true
