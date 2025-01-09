@@ -5,4 +5,4 @@ procs:
 
   Client:
     cwd: frontend
-    shell: yarn start
+    shell: mise exec -- yarn start
