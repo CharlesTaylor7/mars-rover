@@ -1,8 +1,8 @@
 procs:
   Server:
+    cwd: backend
     shell: uv run manage.py runserver
 
   Client:
-    cwd: react-slideshow
+    cwd: frontend
     shell: yarn start
-    autostart: true
