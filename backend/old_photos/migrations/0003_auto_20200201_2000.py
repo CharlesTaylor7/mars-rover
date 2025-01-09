@@ -4,25 +4,24 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
-        ('photos', '0002_auto_20200126_1943'),
+        ("photos", "0002_auto_20200126_1943"),
     ]
 
     operations = [
         migrations.AlterField(
-            model_name='camera',
-            name='name',
+            model_name="camera",
+            name="name",
             field=models.CharField(db_index=True, max_length=50),
         ),
         migrations.AlterField(
-            model_name='photo',
-            name='earth_date',
+            model_name="photo",
+            name="earth_date",
             field=models.DateField(db_index=True, default=None),
         ),
         migrations.AlterField(
-            model_name='rover',
-            name='name',
+            model_name="rover",
+            name="name",
             field=models.CharField(db_index=True, max_length=200),
         ),
     ]

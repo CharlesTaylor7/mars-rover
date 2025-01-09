@@ -5,10 +5,10 @@ from datetime import datetime
 
 
 async def connection_pool():
-    user = environ['POSTGRES_USER']
-    password = environ['POSTGRES_PASSWORD']
-    database = environ['POSTGRES_DATABASE']
-    string = f'postgresql://{user}@localhost/{database}'
+    user = environ["POSTGRES_USER"]
+    password = environ["POSTGRES_PASSWORD"]
+    database = environ["POSTGRES_DATABASE"]
+    string = f"postgresql://{user}@localhost/{database}"
     pool = await asyncpg.create_pool(string, password=password)
     return pool
 
@@ -22,11 +22,11 @@ async def insert_photo(connection, obj: dict) -> None:
             ($1, $2, $3, $4, $5)
         ON CONFLICT DO NOTHING
         """,
-        obj['id'],
-        obj['sol'],
-        obj['img_src'],
-        datetime.fromisoformat(obj['earth_date']),
-        obj['camera']['id'],
+        obj["id"],
+        obj["sol"],
+        obj["img_src"],
+        datetime.fromisoformat(obj["earth_date"]),
+        obj["camera"]["id"],
     )
 
 
@@ -39,10 +39,10 @@ async def insert_camera(connection, obj: dict) -> None:
             ($1, $2, $3, $4)
         ON CONFLICT DO NOTHING
         """,
-        obj['id'],
-        obj['name'],
-        obj['full_name'],
-        obj['rover_id'],
+        obj["id"],
+        obj["name"],
+        obj["full_name"],
+        obj["rover_id"],
     )
 
 
@@ -55,14 +55,14 @@ async def insert_rover(connection, obj: dict) -> None:
             ($1, $2, $3, $4, $5, $6, $7, $8)
         ON CONFLICT DO NOTHING
         """,
-        obj['id'],
-        obj['name'],
-        datetime.fromisoformat(obj['landing_date']),
-        datetime.fromisoformat(obj['launch_date']),
-        obj['status'],
-        obj['max_sol'],
-        datetime.fromisoformat(obj['max_date']),
-        obj['total_photos'],
+        obj["id"],
+        obj["name"],
+        datetime.fromisoformat(obj["landing_date"]),
+        datetime.fromisoformat(obj["launch_date"]),
+        obj["status"],
+        obj["max_sol"],
+        datetime.fromisoformat(obj["max_date"]),
+        obj["total_photos"],
     )
 
 
@@ -96,13 +96,14 @@ async def get_job(connection, rover_id) -> asyncpg.Record:
         WHERE
             photos_job.rover_id = $1
         """,
-        rover_id
+        rover_id,
     )
 
 
 async def insert_or_get_job(connection, rover_id) -> asyncpg.Record:
     job = await get_job(connection, rover_id)
-    if job != None: return job
+    if job != None:
+        return job
 
     await insert_job(connection, rover_id=rover_id)
     job = await get_job(connection, rover_id)
@@ -123,5 +124,5 @@ async def update_job(connection, job_id, sol, page) -> None:
         """,
         sol,
         page,
-        job_id
+        job_id,
     )
