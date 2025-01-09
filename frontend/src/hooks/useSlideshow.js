@@ -1,4 +1,4 @@
-/* eslint-disable no-shadow */
+/* eslint-disable */
 import { useState, useCallback, useEffect } from "react";
 import { fetchPhotos, fetchCameras, rovers } from "../api";
 import useOnKeyDown from "./useOnKeyDown";
