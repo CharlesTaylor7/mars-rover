@@ -8,6 +8,7 @@ from aiohttp import ClientSession
 
 from django.core.management.base import BaseCommand, CommandError
 from photos.models import Rover, Camera, Photo
+from dotenv import load_dotenv
 
 from . import _db as db
 from . import _api as api
@@ -19,6 +20,7 @@ class Command(BaseCommand):
 
     def __init__(self):
         super().__init__()
+        load_dotenv()
         self.stdout = Unbuffered(self.stdout)
 
     def handle(self, *args, **options):
