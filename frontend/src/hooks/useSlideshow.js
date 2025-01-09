@@ -3,13 +3,6 @@ import { useState, useCallback, useEffect } from "react";
 import { fetchPhotos, fetchCameras, rovers } from "../api";
 import useOnKeyDown from "./useOnKeyDown";
 
-const loadImage = (src) =>
-  new Promise((resolve) => {
-    const image = document.createElement("img");
-    image.src = src;
-    image.addEventListener("load", () => resolve(image));
-  });
-
 export default () => {
   const [rover, setRover] = useState(rovers[0]);
   const [camera, setCamera] = useState();
@@ -54,15 +47,6 @@ export default () => {
       setPhotos(photos);
     });
   }, [rover, camera, setPhotos, setPhotoIndex]);
-
-  useEffect(() => {
-    (async () => {
-      /* eslint-disable */
-      for (const photo of photos) {
-        await loadImage(photo.url);
-      }
-    })();
-  }, [photos]);
 
   return {
     cameras,
