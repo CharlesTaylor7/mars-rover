@@ -1,10 +1,8 @@
 import asyncio
-import asyncpg
 import json
 import itertools
 import logging
 
-from asyncio import Queue
 from aiohttp import ClientSession
 
 from django.core.management.base import BaseCommand, CommandError
