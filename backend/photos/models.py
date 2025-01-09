@@ -7,7 +7,6 @@ class Rover(models.Model):
     landing_date = models.DateField(default=None)
     launch_date = models.DateField(default=None)
     status = models.CharField(max_length=50)
-    max_sol = models.IntegerField()
     max_date = models.DateField(default=None)
     total_photos = models.IntegerField()
 
@@ -28,6 +27,7 @@ class Photo(models.Model):
 
 
 class Job(models.Model):
-    sol = models.IntegerField()
-    page = models.IntegerField()
+    sol = models.IntegerField(default=1)
+    page = models.IntegerField(default=1)
     rover = models.ForeignKey(Rover, db_index=True, on_delete=models.CASCADE)
+    max_sol = models.IntegerField()

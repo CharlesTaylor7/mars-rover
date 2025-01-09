@@ -1,4 +1,5 @@
 import asyncio
+import asyncpg
 import json
 import itertools
 import logging
@@ -7,12 +8,23 @@ from asyncio import Queue
 from aiohttp import ClientSession
 
 from django.core.management.base import BaseCommand, CommandError
-from photos.models import Rover, Camera, Photo
+from photos.models import Rover, Camera, Photo, Job
 from dotenv import load_dotenv
 
-from . import _db as db
 from . import _api as api
 from ._unbuffered import Unbuffered
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 class Command(BaseCommand):
@@ -31,28 +43,28 @@ class Command(BaseCommand):
 
         async def load_photos(session, pool, job):
             async with pool.acquire() as connection:
-                max_sol = job["max_sol"]
-                rover_name = job["rover_name"]
-                start_sol = job["sol"]
-                for sol in range(start_sol, max_sol + 1):
-                    start_page = 1 if sol > start_sol else job["page"]
+                for sol in range(job.sol, job.max_sol + 1):
+                    start_page = 1 if sol > job.sol else job.page
                     for page in itertools.count(start=start_page):
                         write(
-                            "rover = %s, sol = %d, page = %d" % (rover_name, sol, page)
+                            "rover = %s, sol = %d, page = %d" % (job.rover.name, sol, page)
                         )
 
                         photos = await api.get_photos(
-                            session, rover=rover_name, sol=sol, page=page
+                            session, rover=job.rover.name, sol=sol, page=page
                         )
 
                         if photos == "RateLimited":
                             write(rate_limit_message)
-                            await db.update_job(connection, job["id"], sol, page)
+                            job.sol = sol
+                            job.page = page
+                            await job.asave()
                             return
 
                         for photo in photos:
-                            await db.insert_camera(connection, photo["camera"])
-                            await db.insert_photo(connection, photo)
+                            await Camera(id=photo['camera']['id'], name=photo['camera']['name'], full_name=photo['camera']['full_name'], rover_id=photo['camera']['rover_id']).asave()
+
+                            await Photo(id=photo['id'], sol=photo['sol'], img_src=photo['img_src'], earth_date=photo['earth_date'], camera_id=photo['camera']['id']).asave()
 
                         if len(photos) < 25:
                             break
@@ -66,8 +78,8 @@ class Command(BaseCommand):
 
                 jobs = []
                 for rover in rovers:
-                    await db.insert_rover(connection, rover)
-                    job = await db.insert_or_get_job(connection, rover["id"])
+                    await Rover(id=rover['id'], name=rover['name'], landing_date=rover['landing_date'], launch_date=rover['launch_date'], status=rover['status'], max_date=rover['max_date'], total_photos=rover['total_photos']).asave()
+                    job,_ = await Job.objects.select_related("rover").aget_or_create(rover_id=rover['id'],defaults={'max_sol': rover['max_sol']})
                     jobs.append(job)
                 return jobs
 
@@ -78,8 +90,6 @@ class Command(BaseCommand):
 
                 await asyncio.gather(*[load_photos(session, pool, job) for job in jobs])
 
-        ignore_all = 51
-        logging.getLogger("asyncio").setLevel(ignore_all)
 
         asyncio.run(populate_db())
 

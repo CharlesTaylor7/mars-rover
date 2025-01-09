@@ -122,7 +122,7 @@ USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.1/howto/static-files/
-REACT_APP_DIR = os.path.join(BASE_DIR, "../frontend/react-slideshow")
+REACT_APP_DIR = os.path.join(BASE_DIR, "../frontend")
 
 STATICFILES_DIRS = [
     os.path.join(REACT_APP_DIR, "build", "static"),
