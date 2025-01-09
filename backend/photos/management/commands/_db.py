@@ -14,70 +14,18 @@ async def connection_pool():
 
 
 async def insert_photo(connection, obj: dict) -> None:
-    await connection.execute(
-        """
-        INSERT INTO
-            photos_photo(id, sol, img_src, earth_date, camera_id)
-        VALUES
-            ($1, $2, $3, $4, $5)
-        ON CONFLICT DO NOTHING
-        """,
-        obj["id"],
-        obj["sol"],
-        obj["img_src"],
-        datetime.fromisoformat(obj["earth_date"]),
-        obj["camera"]["id"],
-    )
+    await Photo(id=obj['id'], sol=obj['sol'], img_src=obj['img_src'], earth_date=obj['earth_date'], camera_id=obj['camera']['id']).asave()
 
 
 async def insert_camera(connection, obj: dict) -> None:
-    await connection.execute(
-        """
-        INSERT INTO
-            photos_camera(id, name, full_name, rover_id)
-        VALUES
-            ($1, $2, $3, $4)
-        ON CONFLICT DO NOTHING
-        """,
-        obj["id"],
-        obj["name"],
-        obj["full_name"],
-        obj["rover_id"],
-    )
+    await Camera(id=obj['id'], name=obj['name'], full_name=obj['full_name'], rover_id=obj['rover_id']).asave()
 
 
 async def insert_rover(connection, obj: dict) -> None:
-    await connection.execute(
-        """
-        INSERT INTO
-            photos_rover(id, name, landing_date, launch_date, status, max_sol, max_date, total_photos)
-        VALUES
-            ($1, $2, $3, $4, $5, $6, $7, $8)
-        ON CONFLICT DO NOTHING
-        """,
-        obj["id"],
-        obj["name"],
-        datetime.fromisoformat(obj["landing_date"]),
-        datetime.fromisoformat(obj["launch_date"]),
-        obj["status"],
-        obj["max_sol"],
-        datetime.fromisoformat(obj["max_date"]),
-        obj["total_photos"],
-    )
-
+    await Rover(id=obj['id'], name=obj['name'], landing_date=obj['landing_date'], launch_date=obj['launch_date'], status=obj['status'], max_sol=obj['max_sol'], max_date=obj['max_date'], total_photos=obj['total_photos']).asave()
 
 async def insert_job(connection, rover_id, sol=0, page=1) -> None:
-    await connection.execute(
-        """
-        INSERT INTO
-            photos_job(sol, page, rover_id)
-        VALUES
-            ($1, $2, $3)
-        """,
-        sol,
-        page,
-        rover_id,
-    )
+    await Job(sol=sol,page=page,rover_id=rover_id).asave()
 
 
 async def get_job(connection, rover_id) -> asyncpg.Record:
