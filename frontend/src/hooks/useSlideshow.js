@@ -1,13 +1,14 @@
 /* eslint-disable no-shadow */
-import { useState, useCallback, useEffect } from 'react';
-import { fetchPhotos, fetchCameras, rovers } from '../api';
-import useOnKeyDown from './useOnKeyDown';
+import { useState, useCallback, useEffect } from "react";
+import { fetchPhotos, fetchCameras, rovers } from "../api";
+import useOnKeyDown from "./useOnKeyDown";
 
-const loadImage = (src) => new Promise((resolve) => {
-  const image = document.createElement('img');
-  image.src = src;
-  image.addEventListener('load', () => resolve(image));
-});
+const loadImage = (src) =>
+  new Promise((resolve) => {
+    const image = document.createElement("img");
+    image.src = src;
+    image.addEventListener("load", () => resolve(image));
+  });
 
 export default () => {
   const [rover, setRover] = useState(rovers[0]);
@@ -30,30 +31,29 @@ export default () => {
 
   const photo = photos[photoIndex];
   useOnKeyDown(({ key }) => {
-    if (key === 'ArrowRight') {
+    if (key === "ArrowRight") {
       nextPhoto();
-    } else if (key === 'ArrowLeft') {
+    } else if (key === "ArrowLeft") {
       prevPhoto();
     }
   }, []);
 
   useEffect(() => {
-    fetchCameras(rover)
-      .then((cameras) => {
-        setCameras(cameras);
+    fetchCameras(rover).then((cameras) => {
+      setCameras(cameras);
+      if (cameras.length) {
         setCamera(cameras[0].name);
-      });
+      }
+    });
   }, [rover]);
 
   useEffect(() => {
     if (camera === undefined) return;
-    fetchPhotos({ rover, camera })
-      .then((photos) => {
-        setPhotoIndex(0);
-        setPhotos(photos);
-      });
-  },
-  [rover, camera, setPhotos, setPhotoIndex]);
+    fetchPhotos({ rover, camera }).then((photos) => {
+      setPhotoIndex(0);
+      setPhotos(photos);
+    });
+  }, [rover, camera, setPhotos, setPhotoIndex]);
 
   useEffect(() => {
     (async () => {
@@ -62,8 +62,7 @@ export default () => {
         await loadImage(photo.url);
       }
     })();
-  },
-  [photos]);
+  }, [photos]);
 
   return {
     cameras,
