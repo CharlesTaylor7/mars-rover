@@ -25,9 +25,8 @@ from django.conf import settings
 from django.conf.urls.static import static
 
 urlpatterns = [
-    # path("", views.FrontendAppView.as_view(), name="index"),
-    *static(settings.STATIC_URL, document_root=settings.STATIC_ROOT),
+    path("", views.FrontendAppView.as_view()),
     path("admin/", admin.site.urls),
     path("mars_rover/", include("photos.urls")),
-    url(r"^", views.FrontendAppView.as_view()),
+    *static(settings.STATIC_URL, document_root=settings.STATIC_ROOT),
 ]
