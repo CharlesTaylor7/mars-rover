@@ -5,7 +5,7 @@
   min-height: 100vh;
   color: white;
   background-color: #373d48;
-  font-family: 'Times New Roman', Times, serif;
+  font-family: serif;
 }
 
 .rover-photo {
@@ -14,4 +14,17 @@
   margin: 10px 0;
   pointer-events: none;
   user-select: none;
+}
+
+.slide-in {
+  animation: slide-in 0.5s 1;
+}
+
+@keyframes slide-in {
+    0% { transform: translateX(100%); }
+    100% { transform: translateX(0%); }
+}
+
+@keyframes slide-out {
+    100% { transform: translateX(-100%); }
 }
